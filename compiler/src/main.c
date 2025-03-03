@@ -2,7 +2,7 @@
 #include <stdlib.h>
 
 /* Bison-generated header file */
-#include "..\build\token.h"
+// #include "..\build\token.h"
 #include "AST\expr.h"
 
 extern struct expr *parser_result;
@@ -37,6 +37,33 @@ void print_ast(struct expr *node, int depth) {
     }
 }
 
+int expr_evaluate(struct expr *node) {
+
+	if (!node) return 0;
+	
+	int l_value = expr_evaluate(node->left);
+	int r_value = expr_evaluate(node->right);
+	
+	printf("left: %d, right: %d, kind: %d\n", l_value, r_value, node->kind);
+	
+	switch (node->kind) {
+		
+		case EXPR_VALUE:
+			return node->value;
+		case EXPR_ADD:
+			return l_value + r_value; break;
+		case EXPR_SUBTRACT:
+			return l_value - r_value; break;
+		case EXPR_MULTIPLY:
+			return l_value * r_value; break;
+		case EXPR_DIVIDE:
+			return l_value / r_value; break;
+		default:
+			printf("Invalid token type encountered\n");
+			return 0;
+	}
+}
+
 int main(int argc, char **argv) {
     if (argc > 1) {
         yyin = fopen(argv[1], "r"); // Open the file if provided
@@ -52,6 +79,7 @@ int main(int argc, char **argv) {
         printf("Parsing completed successfully!\n");
         printf("\nAbstract Syntax Tree (AST):\n");
         print_ast(parser_result, 0);  // Print AST with indentation
+		printf("\nExpression evaluation: %d\n", expr_evaluate(parser_result));
     } else {
         printf("Parsing failed.\n");
     }
