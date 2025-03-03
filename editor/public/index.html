@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity Web Code Editor</title>
+    <link rel="stylesheet" href="..\src\styles\styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&family=Montserrat:wght@500&family=Iosevka&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="loading-container">
+        <div class="throbber"></div>
+        <p>Connecting to server...</p>
+    </div>
+
+    <!-- Error Message Container -->
+    <div id="error-message" class="hidden">
+        <p>Unable to connect to the server. Please check your connection.</p>
+        <button id="try-again-button">Try Again</button>
+    </div>
+
+    <header>
+        <div class="title-container">
+            <h1>Gravity</h1>
+            <h2>Web Code Editor</h2>
+        </div>
+        <div class="controls">
+            <div class="font-controls">
+                <button id="decrease-font"><span class="font-icon">A</span><i class="fas fa-minus"></i></button>
+                <button id="increase-font"><span class="font-icon">A</span><i class="fas fa-plus"></i></button>
+            </div>
+            <button id="run-btn"><i class="fas fa-play"></i> Run</button>
+            <button id="fullscreen-btn"><i class="fas fa-expand"></i></button>
+        </div>
+    </header>
+    <div class="editor-container">
+        <div class="code-editor">
+            <div id="line-numbers"></div>
+            <textarea id="gravity-code" placeholder="Write your Gravity code here..."></textarea>
+            <button id="exit-fullscreen-btn" class="hidden"><i class="fas fa-compress"></i> Exit Full Screen</button>
+        </div>
+        <div class="output-container">
+            <h3>Output</h3>
+            <iframe id="output"></iframe>
+        </div>
+    </div>
+    <script src="..\src\script.js"></script>
+</body>
+</html>
