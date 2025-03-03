@@ -10,9 +10,9 @@ struct expr {
 	expr_t kind;
 	struct expr *left;
 	struct expr *right;
-	int value;
+	float value;
 };
 
 // Function Declarations
 struct expr *expr_create(expr_t kind, struct expr *left, struct expr *right);
-struct expr *expr_create_value(int value);
+struct expr *expr_create_value(float value);

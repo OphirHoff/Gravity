@@ -282,12 +282,12 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 	*yy_cp = '\0'; \
 	yy_c_buf_p = yy_cp;
 
-#define YY_NUM_RULES 11
-#define YY_END_OF_BUFFER 12
-static yyconst short int yy_accept[17] =
+#define YY_NUM_RULES 12
+#define YY_END_OF_BUFFER 13
+static yyconst short int yy_accept[19] =
     {   0,
-        0,    0,   12,   10,    1,    1,    6,    7,    4,    2,
-        3,    5,    9,    8,    9,    0
+        0,    0,   13,   11,    1,    1,    6,    7,    4,    2,
+        3,    5,    9,    8,    0,    9,   10,    0
     } ;
 
 static yyconst int yy_ec[256] =
@@ -296,8 +296,8 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    4,    1,    1,    1,    1,    1,    1,    1,    5,
-        6,    7,    8,    1,    9,    1,   10,   11,   11,   11,
-       11,   11,   11,   11,   11,   11,   11,    1,   12,    1,
+        6,    7,    8,    1,    9,   10,   11,   12,   12,   12,
+       12,   12,   12,   12,   12,   12,   12,    1,   13,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
@@ -322,36 +322,38 @@ static yyconst int yy_ec[256] =
         1,    1,    1,    1,    1
     } ;
 
-static yyconst int yy_meta[13] =
+static yyconst int yy_meta[14] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1
+        1,    1,    1
     } ;
 
-static yyconst short int yy_base[17] =
+static yyconst short int yy_base[19] =
     {   0,
-        0,    0,   15,   16,   16,   16,   16,   16,   16,   16,
-       16,   16,    3,   16,    2,   16
+        0,    0,   18,   19,   19,   19,   19,   19,   19,   19,
+       19,   19,    4,   19,    5,    0,    3,   19
     } ;
 
-static yyconst short int yy_def[17] =
+static yyconst short int yy_def[19] =
     {   0,
-       16,    1,   16,   16,   16,   16,   16,   16,   16,   16,
-       16,   16,   16,   16,   16,    0
+       18,    1,   18,   18,   18,   18,   18,   18,   18,   18,
+       18,   18,   18,   18,   18,   13,   18,    0
     } ;
 
-static yyconst short int yy_nxt[29] =
+static yyconst short int yy_nxt[33] =
     {   0,
-        4,    5,    6,    5,    7,    8,    9,   10,   11,   12,
-       13,   14,   15,   15,   16,    3,   16,   16,   16,   16,
-       16,   16,   16,   16,   16,   16,   16,   16
+        4,    5,    6,    5,    7,    8,    9,   10,   11,    4,
+       12,   13,   14,   15,   17,   16,   17,   18,    3,   18,
+       18,   18,   18,   18,   18,   18,   18,   18,   18,   18,
+       18,   18
     } ;
 
-static yyconst short int yy_chk[29] =
+static yyconst short int yy_chk[33] =
     {   0,
         1,    1,    1,    1,    1,    1,    1,    1,    1,    1,
-        1,    1,   15,   13,    3,   16,   16,   16,   16,   16,
-       16,   16,   16,   16,   16,   16,   16,   16
+        1,    1,    1,   13,   17,   13,   15,    3,   18,   18,
+       18,   18,   18,   18,   18,   18,   18,   18,   18,   18,
+       18,   18
     } ;
 
 static yy_state_type yy_last_accepting_state;
@@ -373,7 +375,7 @@ char *yytext;
 #include "token.h"
 #include "..\src\AST\expr.h"
 
-#line 377 "lex.yy.c"
+#line 379 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -527,7 +529,7 @@ YY_DECL
 #line 13 "src\\scanner\\scanner.flex"
 
 
-#line 531 "lex.yy.c"
+#line 533 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -578,13 +580,13 @@ yy_match:
 			while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 				{
 				yy_current_state = (int) yy_def[yy_current_state];
-				if ( yy_current_state >= 17 )
+				if ( yy_current_state >= 19 )
 					yy_c = yy_meta[(unsigned int) yy_c];
 				}
 			yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
 			++yy_cp;
 			}
-		while ( yy_base[yy_current_state] != 16 );
+		while ( yy_base[yy_current_state] != 19 );
 
 yy_find_action:
 		yy_act = yy_accept[yy_current_state];
@@ -658,14 +660,19 @@ YY_RULE_SETUP
 case 10:
 YY_RULE_SETUP
 #line 24 "src\\scanner\\scanner.flex"
-{ printf("TOKEN_ERROR: %s\n", yytext); return TOKEN_ERROR; }
+{ printf("TOKEN_DEC (%s)\n", yytext); return TOKEN_DEC; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
 #line 25 "src\\scanner\\scanner.flex"
+{ printf("TOKEN_ERROR: %s\n", yytext); return TOKEN_ERROR; }
+	YY_BREAK
+case 12:
+YY_RULE_SETUP
+#line 26 "src\\scanner\\scanner.flex"
 ECHO;
 	YY_BREAK
-#line 669 "lex.yy.c"
+#line 676 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -957,7 +964,7 @@ static yy_state_type yy_get_previous_state()
 		while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 			{
 			yy_current_state = (int) yy_def[yy_current_state];
-			if ( yy_current_state >= 17 )
+			if ( yy_current_state >= 19 )
 				yy_c = yy_meta[(unsigned int) yy_c];
 			}
 		yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
@@ -992,11 +999,11 @@ yy_state_type yy_current_state;
 	while ( yy_chk[yy_base[yy_current_state] + yy_c] != yy_current_state )
 		{
 		yy_current_state = (int) yy_def[yy_current_state];
-		if ( yy_current_state >= 17 )
+		if ( yy_current_state >= 19 )
 			yy_c = yy_meta[(unsigned int) yy_c];
 		}
 	yy_current_state = yy_nxt[yy_base[yy_current_state] + (unsigned int) yy_c];
-	yy_is_jam = (yy_current_state == 16);
+	yy_is_jam = (yy_current_state == 18);
 
 	return yy_is_jam ? 0 : yy_current_state;
 	}
@@ -1551,6 +1558,6 @@ int main()
 	return 0;
 	}
 #endif
-#line 25 "src\\scanner\\scanner.flex"
+#line 26 "src\\scanner\\scanner.flex"
 
 int yywrap() { return 1; }

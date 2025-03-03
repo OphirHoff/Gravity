@@ -40,14 +40,15 @@
       know about them.  */
    enum yytokentype {
      TOKEN_INT = 258,
-     TOKEN_PLUS = 259,
-     TOKEN_MINUS = 260,
-     TOKEN_MUL = 261,
-     TOKEN_DIV = 262,
-     TOKEN_LPAREN = 263,
-     TOKEN_RPAREN = 264,
-     TOKEN_SEMI = 265,
-     TOKEN_ERROR = 266
+     TOKEN_DEC = 259,
+     TOKEN_PLUS = 260,
+     TOKEN_MINUS = 261,
+     TOKEN_MUL = 262,
+     TOKEN_DIV = 263,
+     TOKEN_LPAREN = 264,
+     TOKEN_RPAREN = 265,
+     TOKEN_SEMI = 266,
+     TOKEN_ERROR = 267
    };
 #endif
 

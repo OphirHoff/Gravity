@@ -13,7 +13,7 @@ struct expr * expr_create ( expr_t kind,
 	return e;
 }
 
-struct expr * expr_create_value ( int value )
+struct expr * expr_create_value ( float value )
 {
 	struct expr *e = expr_create(EXPR_VALUE, 0, 0);
 	e->value = value;

@@ -13,6 +13,7 @@ int yyerror(char *s);
 %}
 
 %token TOKEN_INT
+%token TOKEN_DEC
 %token TOKEN_PLUS
 %token TOKEN_MINUS
 %token TOKEN_MUL
@@ -39,6 +40,7 @@ term : term TOKEN_MUL factor { $$ = expr_create(EXPR_MULTIPLY, $1, $3); }
 factor : TOKEN_MINUS factor { $$ = expr_create(EXPR_SUBTRACT, expr_create_value(0), $2); }
 	   | TOKEN_LPAREN expr TOKEN_RPAREN { $$ = $2; }
 	   | TOKEN_INT { $$ = expr_create_value(atoi(yytext)) }
+	   | TOKEN_DEC { $$ = expr_create_value(atof(yytext)); }
 	   ;
 
 %%

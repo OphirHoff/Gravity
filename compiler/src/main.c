@@ -25,7 +25,7 @@ void print_ast(struct expr *node, int depth) {
     if (node->left || node->right) {
         printf("Node(kind: %d)\n", node->kind);
     } else {
-        printf("Leaf(Value: %d)\n", node->value);
+        printf("Leaf(Value: %g)\n", node->value);
     }
 
     /* Recursively print children */
@@ -37,14 +37,14 @@ void print_ast(struct expr *node, int depth) {
     }
 }
 
-int expr_evaluate(struct expr *node) {
+float expr_evaluate(struct expr *node) {
 
 	if (!node) return 0;
 	
-	int l_value = expr_evaluate(node->left);
-	int r_value = expr_evaluate(node->right);
+	float l_value = expr_evaluate(node->left);
+	float r_value = expr_evaluate(node->right);
 	
-	printf("left: %d, right: %d, kind: %d\n", l_value, r_value, node->kind);
+	printf("left: %g, right: %g, kind: %d\n", l_value, r_value, node->kind);
 	
 	switch (node->kind) {
 		
@@ -64,17 +64,50 @@ int expr_evaluate(struct expr *node) {
 	}
 }
 
+/* Function to determine where parentheses are needed for a in the AST */
+int paren_needed(struct expr *node) {
+	/*
+	output:
+	0 -> if no parentheses needed
+	1 -> if parentheses needed only on the left side
+	2 -> if parentheses needed only on the right side
+	3 -> if parentheses needed on both left & right
+	*/
+	
+	if ( node->kind == EXPR_MULTIPLY || node->kind == EXPR_DIVIDE ) {
+		
+		int left_need = node->left->kind == EXPR_ADD || node->left->kind == EXPR_SUBTRACT;
+		int right_need = node->right->kind == EXPR_ADD || node->right->kind == EXPR_SUBTRACT;
+		
+		if ( left_need & !right_need )
+			return 1;
+		if ( !left_need & right_need )
+			return 2;
+		if ( left_need & right_need )
+			return 3;		
+	}
+	
+	return 0;
+}		
+
 void expr_print(struct expr *node) {
 	
 	if (!node) return;
 	
-	printf("(");
+	int where_paren = paren_needed(node);
+	
+	if (where_paren == 1 || where_paren == 3)
+		printf("(");
+	
 	expr_print(node->left);
+	
+	if (paren_needed(node) == 1 || paren_needed(node) == 3)
+		printf(")");
 	
 	switch (node->kind) {
 		
 		case EXPR_VALUE:
-			printf("%d", node->value); break;
+			printf("%g", node->value); break;
 		case EXPR_ADD:
 			printf("+"); break;
 		case EXPR_SUBTRACT:
@@ -87,9 +120,15 @@ void expr_print(struct expr *node) {
 			printf("Invalid token type encountered\n");
 	}
 	
+	if (paren_needed(node) == 2 || paren_needed(node) == 3)
+		printf("(");
+	
 	expr_print(node->right);
 	
-	printf(")");
+	if (paren_needed(node) == 2 || paren_needed(node) == 3)
+		printf(")");
+	
+	
 }
 
 int main(int argc, char **argv) {
@@ -107,7 +146,7 @@ int main(int argc, char **argv) {
         printf("Parsing completed successfully!\n");
         printf("\nAbstract Syntax Tree (AST):\n");
         print_ast(parser_result, 0);  // Print AST with indentation
-		printf("\nExpression evaluation: %d\n", expr_evaluate(parser_result));
+		printf("\nExpression evaluation: %g\n\n", expr_evaluate(parser_result));
 		expr_print(parser_result);
     } else {
         printf("Parsing failed.\n");
