@@ -64,6 +64,34 @@ int expr_evaluate(struct expr *node) {
 	}
 }
 
+void expr_print(struct expr *node) {
+	
+	if (!node) return;
+	
+	printf("(");
+	expr_print(node->left);
+	
+	switch (node->kind) {
+		
+		case EXPR_VALUE:
+			printf("%d", node->value); break;
+		case EXPR_ADD:
+			printf("+"); break;
+		case EXPR_SUBTRACT:
+			printf("-"); break;
+		case EXPR_MULTIPLY:
+			printf("*"); break;
+		case EXPR_DIVIDE:
+			printf("/"); break;
+		default:
+			printf("Invalid token type encountered\n");
+	}
+	
+	expr_print(node->right);
+	
+	printf(")");
+}
+
 int main(int argc, char **argv) {
     if (argc > 1) {
         yyin = fopen(argv[1], "r"); // Open the file if provided
@@ -80,6 +108,7 @@ int main(int argc, char **argv) {
         printf("\nAbstract Syntax Tree (AST):\n");
         print_ast(parser_result, 0);  // Print AST with indentation
 		printf("\nExpression evaluation: %d\n", expr_evaluate(parser_result));
+		expr_print(parser_result);
     } else {
         printf("Parsing failed.\n");
     }
