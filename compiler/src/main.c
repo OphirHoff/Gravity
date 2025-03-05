@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <math.h>
 
 /* Bison-generated header file */
 // #include "..\build\token.h"
@@ -25,7 +27,10 @@ void print_ast(struct expr *node, int depth) {
     if (node->left || node->right) {
         printf("Node(kind: %d)\n", node->kind);
     } else {
-        printf("Leaf(Value: %g)\n", node->value);
+		if (node->kind == EXPR_VALUE)
+			printf("Leaf(Value: %g)\n", node->value);
+		else if (node->kind == EXPR_VAR)
+			printf("Leaf(Ident.: %s)\n", node->var_name);
     }
 
     /* Recursively print children */
@@ -37,6 +42,16 @@ void print_ast(struct expr *node, int depth) {
     }
 }
 
+float func_run(char *func, float arg) {
+	
+	if (strcmp(func, "sin") == 0) {
+		return sin(arg);
+	} else {
+		printf("Unsupported function encountered.\n"); return 0;
+	}
+	
+}
+
 float expr_evaluate(struct expr *node) {
 
 	if (!node) return 0;
@@ -44,7 +59,8 @@ float expr_evaluate(struct expr *node) {
 	float l_value = expr_evaluate(node->left);
 	float r_value = expr_evaluate(node->right);
 	
-	printf("left: %g, right: %g, kind: %d\n", l_value, r_value, node->kind);
+	// printf("left: %g, right: %g, kind: %d\n", l_value, r_value, node->kind);
+	// printf("name: %s\n", node->func_name);
 	
 	switch (node->kind) {
 		
@@ -146,8 +162,8 @@ int main(int argc, char **argv) {
         printf("Parsing completed successfully!\n");
         printf("\nAbstract Syntax Tree (AST):\n");
         print_ast(parser_result, 0);  // Print AST with indentation
-		printf("\nExpression evaluation: %g\n\n", expr_evaluate(parser_result));
-		expr_print(parser_result);
+		// printf("\nExpression evaluation: %g\n\n", expr_evaluate(parser_result));
+		// expr_print(parser_result);
     } else {
         printf("Parsing failed.\n");
     }

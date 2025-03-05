@@ -3,10 +3,6 @@ PARSE_DIR = src\parser
 AST_DIR = src\AST
 BUILD_DIR = build
 
-SRCS = main.c scanner.c
-OBJS = main.o scanner.o
-EXE = scanner.exe
-
 $(BUILD_DIR):
 	if not exist $(BUILD_DIR) mkdir $(BUILD_DIR)
 

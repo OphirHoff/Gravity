@@ -39,23 +39,41 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     TOKEN_INT = 258,
-     TOKEN_DEC = 259,
-     TOKEN_PLUS = 260,
-     TOKEN_MINUS = 261,
-     TOKEN_MUL = 262,
-     TOKEN_DIV = 263,
-     TOKEN_LPAREN = 264,
-     TOKEN_RPAREN = 265,
-     TOKEN_SEMI = 266,
-     TOKEN_ERROR = 267
+     TOKEN_ID = 258,
+     TOKEN_INT = 259,
+     TOKEN_DEC = 260,
+     TOKEN_PLUS = 261,
+     TOKEN_MINUS = 262,
+     TOKEN_EQUAL = 263,
+     TOKEN_MUL = 264,
+     TOKEN_DIV = 265,
+     TOKEN_LPAREN = 266,
+     TOKEN_RPAREN = 267,
+     TOKEN_SEMI = 268,
+     TOKEN_ERROR = 269
    };
 #endif
 
 
 
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
-typedef int YYSTYPE;
+typedef union YYSTYPE
+{
+
+/* Line 1676 of yacc.c  */
+#line 15 "src\\parser\\parser.bison"
+
+	
+	char *str;
+	struct expr *node;
+	int ival;
+	float dval;
+
+
+
+/* Line 1676 of yacc.c  */
+#line 76 "build\\token.h"
+} YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
 # define YYSTYPE_IS_DECLARED 1
