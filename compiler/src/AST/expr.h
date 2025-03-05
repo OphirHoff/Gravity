@@ -27,3 +27,4 @@ struct expr *expr_create(expr_t kind, struct expr *left, struct expr *right);
 struct expr *expr_create_dval(float value);
 struct expr *expr_create_ival(int value);
 struct expr * expr_create_var (char *name);
+struct expr * expr_create_list ( struct expr * left, struct expr * right );

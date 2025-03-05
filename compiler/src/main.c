@@ -17,6 +17,8 @@ extern FILE *yyin; // Flex input file stream
 /* Function to print the AST in a readable format */
 void print_ast(struct expr *node, int depth) {
     if (!node) return;
+	
+	// printf("depth: %d\n", depth);
 
     /* Indent according to tree depth */
     for (int i = 0; i < depth; i++) {
@@ -40,6 +42,15 @@ void print_ast(struct expr *node, int depth) {
     if (node->right) {
         print_ast(node->right, depth + 1);
     }
+}
+
+void print_expr_list(struct expr *lst) {
+	
+	if (!lst) return;
+	
+	print_ast(lst->left, 0);
+	
+	print_expr_list(lst->right);
 }
 
 float func_run(char *func, float arg) {
@@ -161,7 +172,8 @@ int main(int argc, char **argv) {
    if (yyparse() == 0) {
         printf("Parsing completed successfully!\n");
         printf("\nAbstract Syntax Tree (AST):\n");
-        print_ast(parser_result, 0);  // Print AST with indentation
+        // print_ast(parser_result, 0);  // Print AST with indentation
+		print_expr_list(parser_result);
 		// printf("\nExpression evaluation: %g\n\n", expr_evaluate(parser_result));
 		// expr_print(parser_result);
     } else {

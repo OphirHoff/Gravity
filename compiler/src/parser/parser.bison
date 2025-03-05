@@ -39,11 +39,12 @@ int yyerror(char *s);
 %type <node> factor
 
 %%
+
 prog : expr_list { parser_result = $1; }
 
-expr_list : expr TOKEN_SEMI expr_list { $$ = expr_create(EXPR_LIST, $1, $3); }
-		  | expr TOKEN_SEMI { $$ = $1; }
-		  
+expr_list : expr TOKEN_SEMI expr_list { $$ = expr_create_list($1, $3); }
+		  | expr TOKEN_SEMI { $$ = expr_create_list($1, NULL); }
+		  ;
 
 expr : expr TOKEN_PLUS term { $$ = expr_create(EXPR_ADD, $1, $3); }
 	 | expr TOKEN_MINUS term { $$ = expr_create(EXPR_SUBTRACT, $1, $3); }
@@ -60,6 +61,7 @@ factor : TOKEN_MINUS factor { $$ = expr_create(EXPR_SUBTRACT, expr_create_ival(0
 	   | TOKEN_LPAREN expr TOKEN_RPAREN { $$ = $2; }
 	   | TOKEN_INT { $$ = expr_create_ival($1); }
 	   | TOKEN_DEC { $$ = expr_create_dval($1); }
+	   | TOKEN_ID { $$ = expr_create_var($1); }
 	   ;
 	 
 	 
