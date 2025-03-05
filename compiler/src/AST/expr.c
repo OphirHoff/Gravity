@@ -39,6 +39,14 @@ struct expr * expr_create_var (char *name)
 	return e;
 }
 
+// struct expr * expr_create_list ( struct expr * left, struct expr * right )
+// {
+	// struct expr *e = expr_create(EXPR_LIST, 0, 0);
+	// left->right = right->list;
+	// e->list = left;
+	// return e;
+// }
+
 struct expr * expr_create_list ( struct expr * left, struct expr * right )
 {
 	struct expr *e = expr_create(EXPR_LIST, 0, 0);

@@ -43,6 +43,7 @@ prog : expr_list { parser_result = $1; }
 
 expr_list : expr TOKEN_SEMI expr_list { $$ = expr_create(EXPR_LIST, $1, $3); }
 		  | expr TOKEN_SEMI { $$ = $1; }
+		  
 
 expr : expr TOKEN_PLUS term { $$ = expr_create(EXPR_ADD, $1, $3); }
 	 | expr TOKEN_MINUS term { $$ = expr_create(EXPR_SUBTRACT, $1, $3); }

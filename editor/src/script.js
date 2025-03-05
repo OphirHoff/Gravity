@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
             output.srcdoc = `
                 <html>
                     <head>
-                        <link rel="stylesheet" href="styles.css">
+                        <link rel="stylesheet" href="../src/styles/styles.css">
                     </head>
                     <body class="iframe-styles">
                         <pre id="pre-text"></pre>

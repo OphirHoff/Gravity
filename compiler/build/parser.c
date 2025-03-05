@@ -443,8 +443,8 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    42,    42,    44,    45,    47,    48,    49,    50,    53,
-      54,    55,    58,    59,    60,    61
+       0,    42,    42,    44,    45,    48,    49,    50,    51,    54,
+      55,    56,    59,    60,    61,    62
 };
 #endif
 
@@ -1376,77 +1376,77 @@ yyreduce:
   case 5:
 
 /* Line 1455 of yacc.c  */
-#line 47 "src\\parser\\parser.bison"
+#line 48 "src\\parser\\parser.bison"
     { (yyval.node) = expr_create(EXPR_ADD, (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); ;}
     break;
 
   case 6:
 
 /* Line 1455 of yacc.c  */
-#line 48 "src\\parser\\parser.bison"
+#line 49 "src\\parser\\parser.bison"
     { (yyval.node) = expr_create(EXPR_SUBTRACT, (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); ;}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 49 "src\\parser\\parser.bison"
+#line 50 "src\\parser\\parser.bison"
     { (yyval.node) = expr_create(EXPR_ASSIGN, expr_create_var((yyvsp[(1) - (3)].str)), (yyvsp[(3) - (3)].node)); ;}
     break;
 
   case 8:
 
 /* Line 1455 of yacc.c  */
-#line 50 "src\\parser\\parser.bison"
+#line 51 "src\\parser\\parser.bison"
     { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 9:
 
 /* Line 1455 of yacc.c  */
-#line 53 "src\\parser\\parser.bison"
+#line 54 "src\\parser\\parser.bison"
     { (yyval.node) = expr_create(EXPR_MULTIPLY, (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); ;}
     break;
 
   case 10:
 
 /* Line 1455 of yacc.c  */
-#line 54 "src\\parser\\parser.bison"
+#line 55 "src\\parser\\parser.bison"
     { (yyval.node) = expr_create(EXPR_DIVIDE, (yyvsp[(1) - (3)].node), (yyvsp[(3) - (3)].node)); ;}
     break;
 
   case 11:
 
 /* Line 1455 of yacc.c  */
-#line 55 "src\\parser\\parser.bison"
+#line 56 "src\\parser\\parser.bison"
     { (yyval.node) = (yyvsp[(1) - (1)].node); ;}
     break;
 
   case 12:
 
 /* Line 1455 of yacc.c  */
-#line 58 "src\\parser\\parser.bison"
+#line 59 "src\\parser\\parser.bison"
     { (yyval.node) = expr_create(EXPR_SUBTRACT, expr_create_ival(0), (yyvsp[(2) - (2)].node)); ;}
     break;
 
   case 13:
 
 /* Line 1455 of yacc.c  */
-#line 59 "src\\parser\\parser.bison"
+#line 60 "src\\parser\\parser.bison"
     { (yyval.node) = (yyvsp[(2) - (3)].node); ;}
     break;
 
   case 14:
 
 /* Line 1455 of yacc.c  */
-#line 60 "src\\parser\\parser.bison"
+#line 61 "src\\parser\\parser.bison"
     { (yyval.node) = expr_create_ival((yyvsp[(1) - (1)].ival)); ;}
     break;
 
   case 15:
 
 /* Line 1455 of yacc.c  */
-#line 61 "src\\parser\\parser.bison"
+#line 62 "src\\parser\\parser.bison"
     { (yyval.node) = expr_create_dval((yyvsp[(1) - (1)].dval)); ;}
     break;
 
@@ -1665,7 +1665,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 65 "src\\parser\\parser.bison"
+#line 66 "src\\parser\\parser.bison"
 
 int yyerror( char *s ) {
 	printf("parse error: %s\n",s);
