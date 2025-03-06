@@ -1,10 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <math.h>
+#include "symbol\symbol.h"
 
 /* Bison-generated header file */
 // #include "..\build\token.h"
+
 #include "AST\expr.h"
 
 extern struct expr *parser_result;
@@ -13,6 +14,9 @@ extern struct expr *parser_result;
 extern int yylex();
 extern int yyparse();
 extern FILE *yyin; // Flex input file stream
+
+extern struct symbol *symbol_table;
+
 
 /* Function to print the AST in a readable format */
 void print_ast(struct expr *node, int depth) {
@@ -53,25 +57,22 @@ void print_expr_list(struct expr *lst) {
 	print_expr_list(lst->right);
 }
 
-float func_run(char *func, float arg) {
-	
-	if (strcmp(func, "sin") == 0) {
-		return sin(arg);
-	} else {
-		printf("Unsupported function encountered.\n"); return 0;
-	}
-	
-}
-
 float expr_evaluate(struct expr *node) {
 
 	if (!node) return 0;
 	
-	float l_value = expr_evaluate(node->left);
-	float r_value = expr_evaluate(node->right);
+	float l_value;
+	float r_value;
 	
-	// printf("left: %g, right: %g, kind: %d\n", l_value, r_value, node->kind);
-	// printf("name: %s\n", node->func_name);
+	if (node->left && node->left->kind == EXPR_VAR && node->kind != EXPR_ASSIGN)
+		l_value = *(float *)get_symbol_value(node->left->var_name, TYPE_FLOAT);
+	else
+		l_value = expr_evaluate(node->left);
+	
+	if (node->right && node->right->kind == EXPR_VAR && node->kind != EXPR_ASSIGN)
+		r_value = *(float *)get_symbol_value(node->right->var_name, TYPE_FLOAT);
+	else
+		r_value = expr_evaluate(node->right);
 	
 	switch (node->kind) {
 		
@@ -85,10 +86,35 @@ float expr_evaluate(struct expr *node) {
 			return l_value * r_value; break;
 		case EXPR_DIVIDE:
 			return l_value / r_value; break;
+		case EXPR_ASSIGN:
+			float *value = malloc(sizeof(float));
+			*value = r_value;
+			insert_symbol(node->left->var_name, TYPE_FLOAT, (void *)value);
+			return 0;
+		case EXPR_VAR:
+			return 0; break;
 		default:
-			printf("Invalid token type encountered\n");
+			printf("Invalid expression kind encountered\n");
 			return 0;
 	}
+}
+
+void prog_evaluate(struct expr *expr_list) {
+	
+	if (!expr_list) return;
+	
+	printf("%g\n", expr_evaluate(expr_list->left));
+	
+	prog_evaluate(expr_list->right);
+}
+
+void print_sym_tbl(struct symbol *table) {
+	
+	if (!table) return;
+	
+	printf("name: %s, value: %g, address: %p\n", table->name, *(float *)(table->value), table->value);
+	
+	print_sym_tbl(table->next);
 }
 
 /* Function to determine where parentheses are needed for a in the AST */
@@ -176,6 +202,9 @@ int main(int argc, char **argv) {
 		print_expr_list(parser_result);
 		// printf("\nExpression evaluation: %g\n\n", expr_evaluate(parser_result));
 		// expr_print(parser_result);
+		printf("\nExpressions output:\n");
+		prog_evaluate(parser_result);
+		
     } else {
         printf("Parsing failed.\n");
     }
