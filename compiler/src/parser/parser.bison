@@ -37,6 +37,7 @@ int yyerror(char *s);
 %type <node> expr_list
 %type <node> term
 %type <node> factor
+%type <node> func_call
 
 %%
 
@@ -62,8 +63,11 @@ factor : TOKEN_MINUS factor { $$ = expr_create(EXPR_SUBTRACT, expr_create_ival(0
 	   | TOKEN_INT { $$ = expr_create_ival($1); }
 	   | TOKEN_DEC { $$ = expr_create_dval($1); }
 	   | TOKEN_ID { $$ = expr_create_var($1); }
+	   | func_call { $$ = $1; }
 	   ;
-	 
+
+func_call : TOKEN_ID TOKEN_LPAREN expr TOKEN_RPAREN { $$ = expr_create_func($1, $3); }
+		  ;
 	 
 %%
 int yyerror( char *s ) {

@@ -1,12 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "symbol\symbol.h"
 
 /* Bison-generated header file */
 // #include "..\build\token.h"
 
 #include "AST\expr.h"
+
+#define PI 3.14159265358979323846
 
 extern struct expr *parser_result;
 
@@ -57,6 +60,15 @@ void print_expr_list(struct expr *lst) {
 	print_expr_list(lst->right);
 }
 
+float func_run(char *name, float arg) {
+	
+	if (strcmp(name, "sqrt") == 0) {
+		return sqrt(arg);
+	} else if (strcmp(name, "sin") == 0) {
+		return sin(arg * (PI / 180.0));
+	}
+}
+
 float expr_evaluate(struct expr *node) {
 
 	if (!node) return 0;
@@ -93,6 +105,8 @@ float expr_evaluate(struct expr *node) {
 			return 0;
 		case EXPR_VAR:
 			return 0; break;
+		case EXPR_FUNCTION:
+			return func_run(node->var_name, l_value);
 		default:
 			printf("Invalid expression kind encountered\n");
 			return 0;
