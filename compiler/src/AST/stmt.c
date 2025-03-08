@@ -1,4 +1,5 @@
 #include "stmt.h"
+#include <stdlib.h>
 
 struct stmt *stmt_create(stmt_t kind, struct decl *decl, struct expr *init_expr,
                          struct expr *expr, struct expr *next_expr,

@@ -6,6 +6,10 @@ typedef enum {
   EXPR_SUB,
   EXPR_MUL,
   EXPR_DIV,
+  EXPR_INC,
+  EXPR_DEC,
+  EXPR_LT,
+  EXPR_GT,
   EXPR_INT_LITERAL,
   EXPR_FLOAT_LITERAL,
   EXPR_CHAR_LITERAL,
@@ -30,7 +34,7 @@ struct expr *expr_create(expr_t kind, struct expr *left, struct expr *right);
 /* Factories for leaf types*/
 struct expr *expr_create_int_literal(int value);
 struct expr *expr_create_float_literal(float value);
-struct expt *expr_create_char_literal(char ch);
+struct expr *expr_create_char_literal(char ch);
 struct expr *expr_create_string_literal(const char *str);
 struct expr *expr_create_var(const char *name);
 

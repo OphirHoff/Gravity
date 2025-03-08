@@ -1,3 +1,16 @@
-a = 87.3;
-b = 45;
-sin(a) * sqrt(b);
+proc int compute(int x) {
+
+    int i;
+    int total = 0;
+    loop(i = 0; i < 10; i++) {
+        total = total + i;
+    }
+
+    if (total > 5) {
+        dec a = 10.26;
+    } else {
+        out("YAY!");
+    }
+
+    ret x * x;
+}

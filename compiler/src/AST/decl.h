@@ -2,12 +2,13 @@
 #define DECL_H
 
 typedef enum {
-  TYPE_VOID,
-  TYPE_CHARACTER,
+  // TYPE_VOID,
   TYPE_INTEGER,
+  TYPE_DECIMAL,
+  TYPE_CHARACTER,
   TYPE_STRING,
-  // TYPE_ARRAY,
-  // TYPE_FUNCTION
+  TYPE_FUNCTION
+  // TYPE_ARRAY
 } type_t;
 
 struct type {
@@ -31,7 +32,13 @@ struct decl {
   struct decl *next;
 };
 
+struct type *type_create(type_t kind, struct type *subtype,
+                         struct param_list *params);
+
 struct decl *decl_create(char *name, struct type *type, struct expr *value,
                          struct stmt *code, struct decl *next);
+
+struct param_list *param_create(char *name, struct type *type,
+                                struct param_list *next);
 
 #endif
