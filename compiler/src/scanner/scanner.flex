@@ -21,10 +21,17 @@ STRING \"[^\"]*\"
 \=						{ printf("TOKEN_EQUAL\n"); return TOKEN_EQUAL; }
 \(             			{ printf("TOKEN_LPAREN\n"); return TOKEN_LPAREN; }
 \)             			{ printf("TOKEN_RPAREN\n"); return TOKEN_RPAREN; }
+\{                      { printf("TOKEN_LBRACE\n"); return TOKEN_LBRACE; }
+\}                      { printf("TOKEN_RBRACE\n"); return TOKEN_RBRACE; }
 \;             			{ printf("TOKEN_SEMI\n"); return TOKEN_SEMI; }
 {DIGIT}+       			{ printf("TOKEN_INT (%s)\n", yytext); yylval.ival = atoi(yytext); return TOKEN_INT; }
 {DIGIT}+\.{DIGIT}+		{ printf("TOKEN_DEC (%s)\n", yytext); yylval.dval = atof(yytext); return TOKEN_DEC; }
 _*{LETTER}+{DIGIT}*_*	{ printf("TOKEN_ID (%s)\n", yytext); yylval.str = strdup(yytext); return TOKEN_ID; }
+"if"                    { printf("TOKEN_IF\n"); return TOKEN_IF; }
+"else"                  { printf("TOKEN_ELSE\n"); return TOKEN_ELSE; }
+"loop"                  { printf("TOKEN_LOOP\n"); return TOKEN_LOOP; }
+"out"                   { printf("TOKEN_OUT\n"); return TOKEN_OUT; }
+"ret"                   { printf("TOKEN_RET\n"); return TOKEN_RET; }
 .              			{ printf("TOKEN_ERROR: %s\n", yytext); return TOKEN_ERROR; }
 %%
 int yywrap() { return 1; }
