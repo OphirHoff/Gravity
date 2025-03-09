@@ -15,7 +15,9 @@ typedef enum {
   EXPR_CHAR_LITERAL,
   EXPR_STR_LITERAL,
   EXPR_VAR,
-  EXPR_ASSIGN
+  EXPR_ASSIGN,
+  EXPR_CALL,
+  EXPR_ARG
 } expr_t;
 
 struct expr {

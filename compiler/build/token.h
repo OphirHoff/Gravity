@@ -63,14 +63,15 @@
      TOKEN_DECR = 279,
      TOKEN_LT = 280,
      TOKEN_GT = 281,
-     TOKEN_LPAREN = 282,
-     TOKEN_RPAREN = 283,
-     TOKEN_LBRACE = 284,
-     TOKEN_RBRACE = 285,
-     TOKEN_COMMA = 286,
-     TOKEN_COLON = 287,
-     TOKEN_SEMI = 288,
-     TOKEN_ERROR = 289
+     TOKEN_DOLLAR = 282,
+     TOKEN_COLON_COLON = 283,
+     TOKEN_LPAREN = 284,
+     TOKEN_RPAREN = 285,
+     TOKEN_LBRACE = 286,
+     TOKEN_RBRACE = 287,
+     TOKEN_COMMA = 288,
+     TOKEN_SEMI = 289,
+     TOKEN_ERROR = 290
    };
 #endif
 
@@ -93,12 +94,10 @@ typedef union YYSTYPE
 	char ch;
 	char *str;
 
-	// struct expr *node;
-
 
 
 /* Line 1676 of yacc.c  */
-#line 102 "build\\token.h"
+#line 101 "build\\token.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

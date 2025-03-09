@@ -1,4 +1,4 @@
-proc int compute(int x) {
+proc int compute(int x, char ch, dec f) {
 
     int i;
     int total = 0;
@@ -13,4 +13,13 @@ proc int compute(int x) {
     }
 
     ret x * x;
+}
+
+proc int main() {
+
+    int a = 5;
+    char b = 's';
+    out("hi");
+    $compute::(a, b, 89.954);
+
 }

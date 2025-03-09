@@ -52,19 +52,3 @@ struct expr *expr_create_var(const char *name) {
   e->var_name = strdup(name);
   return e;
 }
-
-// struct expr *expr_create_func(char *name, struct expr *arg) {
-
-//   struct expr *e = expr_create(EXPR_FUNCTION, 0, 0);
-//   e->var_name = strdup(name);
-//   e->left = arg;
-//   return e;
-// }
-
-// struct expr *expr_create_list(struct expr *exp, struct expr *next_exp) {
-
-//   struct expr *e = expr_create(EXPR_LIST, 0, 0);
-//   e->left = exp;
-//   e->right = next_exp;
-//   return e;
-// }

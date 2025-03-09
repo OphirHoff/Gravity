@@ -25,8 +25,6 @@ int yyerror(char *s);
 	float dval;
 	char ch;
 	char *str;
-
-	// struct expr *node;
 }
 
 %token <str> TOKEN_ID
@@ -53,6 +51,8 @@ int yyerror(char *s);
 %token TOKEN_DECR
 %token TOKEN_LT
 %token TOKEN_GT
+%token TOKEN_DOLLAR
+%token TOKEN_COLON_COLON
 %token TOKEN_LPAREN
 %token TOKEN_RPAREN
 %token TOKEN_LBRACE
@@ -63,7 +63,7 @@ int yyerror(char *s);
 
 %type <decl> prog decl_list decl
 %type <stmt> stmt_list stmt
-%type <expr> expr
+%type <expr> expr arg_list arg
 %type <param> param_list param
 %type <type> type
 
@@ -120,6 +120,9 @@ expr : expr TOKEN_PLUS expr { $$ = expr_create(EXPR_ADD, $1, $3); }
 	 | TOKEN_MINUS expr { $$ = expr_create(EXPR_SUB, expr_create_int_literal(0), $2); }
 	 | TOKEN_ID { $$ = expr_create_var($1); }
 	 | TOKEN_ID TOKEN_EQUAL expr { $$ = expr_create(EXPR_ASSIGN, expr_create_var($1), $3); }
+	 | TOKEN_DOLLAR TOKEN_ID { $$ = expr_create(EXPR_CALL, expr_create_var($2), 0); }    // Function call (no arguments)
+	 | TOKEN_DOLLAR TOKEN_ID TOKEN_COLON_COLON TOKEN_LPAREN arg_list TOKEN_RPAREN        // Function call (with arguments)
+	 	{ $$ = expr_create(EXPR_CALL, expr_create_var($2), $5); }
 	 | TOKEN_LPAREN expr TOKEN_RPAREN { $$ = $2; }
 	 ;
 
@@ -131,6 +134,15 @@ param_list : param { $$ = $1; }
 
 param : type TOKEN_ID { $$ = param_create($2, $1, 0); }
 	  ;
+
+arg_list : arg { $$ = $1; }
+		 | arg TOKEN_COMMA arg_list { $$ = $1; $1->right = $3; }
+		 | /* epsilon */
+		  { $$ = 0; }
+		 ;
+
+arg : expr { $$ = expr_create(EXPR_ARG, $1, 0); }
+	;
 
 type : TOKEN_INT { $$ = type_create(TYPE_INTEGER, 0, 0); }
 	 | TOKEN_DEC { $$ = type_create(TYPE_DECIMAL, 0, 0); }

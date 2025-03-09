@@ -1,6 +1,7 @@
 SCAN_DIR = src\scanner
 PARSE_DIR = src\parser
 AST_DIR = src\AST
+DEBUG_DIR = src\debug
 SYM_DIR = src\symbol
 BUILD_DIR = build
 
@@ -15,6 +16,9 @@ TOKEN_H = $(BUILD_DIR)\token.h
 # AST source files
 AST_SRC = $(AST_DIR)\decl.c $(AST_DIR)\stmt.c $(AST_DIR)\expr.c
 
+# Debug functions file
+DEBUG_SRC = $(DEBUG_DIR)\debug.c
+
 
 
 $(SCANNER_C): $(SCAN_DIR)\scanner.flex | $(BUILD_DIR)
@@ -23,12 +27,9 @@ $(SCANNER_C): $(SCAN_DIR)\scanner.flex | $(BUILD_DIR)
 	
 $(PARSER_C) $(TOKEN_H): $(PARSE_DIR)/parser.bison | $(BUILD_DIR)
 	bison --defines=$(TOKEN_H) --output=$(PARSER_C) $(PARSE_DIR)\parser.bison
-	
-# parser: $(SCANNER_C) $(PARSER_C) $(TOKEN_H) $(AST_DIR)\expr.c src\main.c $(SYM_DIR)\symbol.h $(SYM_DIR)\symbol.c | bin
-# 	gcc -o bin\parser.exe src\main.c $(SCANNER_C) $(PARSER_C) $(AST_DIR)\expr.c $(SYM_DIR)\symbol.h $(SYM_DIR)\symbol.c
 
 parser: $(SCANNER_C) $(PARSER_C) $(TOKEN_H) $(AST_DIR)\expr.c src\main.c | bin
-	gcc -o bin\parser.exe src\main.c $(SCANNER_C) $(PARSER_C) $(AST_SRC)
+	gcc -o bin\parser.exe src\main.c $(SCANNER_C) $(PARSER_C) $(AST_SRC) $(DEBUG_SRC)
 
 bin:
 	if not exist bin mkdir bin
